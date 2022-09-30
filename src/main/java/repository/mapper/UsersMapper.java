@@ -1,7 +1,6 @@
 package repository.mapper;
 
 import entity.Users;
-import org.apache.catalina.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -17,7 +16,8 @@ public class UsersMapper implements RowMapper<Users> {
         String phoneNumber = rs.getString(4);
         String username = rs.getString(5);
         String password = rs.getString(6);
+        String priority = rs.getString(10);
 
-        return new Users(id, firstName, lastName, phoneNumber, username, password);
+        return new Users(id, firstName, lastName, phoneNumber, username, password, priority);
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import config.Util;
 import entity.Response;
 import entity.Users;
 import service.UsersService;
@@ -25,22 +26,14 @@ public class UsersController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Response<Users> response = service.addUser(req, resp);
 
-        sendResponse("application.json", resp, response);
+        Util.sendResponse("application.json", resp, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Response<List<Users>> response = service.getAllUsers(req, resp);
 
-        sendResponse("application.json", resp, response);
+        Util.sendResponse("application.json", resp, response);
     }
 
-    private void sendResponse(String contentType,HttpServletResponse resp, Response<?> value) throws IOException {
-        resp.setContentType(contentType);
-        PrintWriter writer = resp.getWriter();
-        writer.println(value);
-
-        writer.close();
-
-    }
 }

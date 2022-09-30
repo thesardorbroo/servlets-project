@@ -1,7 +1,0 @@
-config\DatabaseConfig.class
-repository\mapper\StudentRepositoryMapper.class
-repository\StudentRepository.class
-service\StudentService.class
-entity\Student.class
-entity\Response.class
-controller\StudentController.class

@@ -16,15 +16,24 @@ public class Users {
 
     private String priority;
 
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public Users(){}
 
-    public Users(Integer id, String firstName, String lastName, String phoneNumber, String username, String password) {
+    public Users(Integer id, String firstName, String lastName, String phoneNumber, String username, String password, String priority) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.username = username;
         this.password = password;
+        this.priority = priority;
     }
 
     public Integer getId() {

@@ -9,7 +9,12 @@
     <servlet-name>RegistrationServlet</servlet-name>
     <servlet-class>controller.UsersController</servlet-class>
   </servlet>
-
+  
+  <servlet>
+    <servlet-name>TaskServlet</servlet-name>
+    <servlet-class>controller.TaskController</servlet-class>
+  </servlet>
+  
   <servlet>
     <servlet-name>StudentServlet</servlet-name>
     <servlet-class>controller.StudentController</servlet-class>
@@ -25,5 +30,8 @@
     <url-pattern>/student</url-pattern>
   </servlet-mapping>
   
-  
+  <servlet-mapping>
+    <servlet-name>TaskServlet</servlet-name>
+    <url-pattern>/task</url-pattern>
+  </servlet-mapping>
 </web-app>

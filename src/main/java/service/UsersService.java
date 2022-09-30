@@ -8,7 +8,6 @@ import repository.UsersRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -48,17 +47,11 @@ public class UsersService {
 
         }
 
-        if (map.size() != 0) {
+        List<Users> users = repository.getUsers(map);
 
-        } else {
+        return users.isEmpty() ?
+                new Response<>(-1, false, "User is not exists", null) :
+                new Response<>(0, true, "OK", users);
 
-            List<Users> users = repository.findAll();
-
-            return users.isEmpty() ?
-                    new Response<>(-1, false, "User is already exists", null) :
-                    new Response<>(0, true, "OK", users);
-        }
-
-        return null;
     }
 }

@@ -7,6 +7,7 @@ import repository.mapper.UsersMapper;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Map;
 
 public class UsersRepository {
 
@@ -35,9 +36,36 @@ public class UsersRepository {
         return findUsersByOnceParam("username", users.getUsername());
     }
 
-    public List<Users> findAll(){
-        String query = "SELECT * FROM users";
-        return template.query(query, mapper);
+    public List<Users> getUsers(Map<String, String> map){
+        StringBuilder builder = new StringBuilder("SELECT * FROM users WHERE 1=1 ");
+        setParameters(builder, map);
+
+        return template.query(builder + "", mapper);
+    }
+
+    private void setParameters(StringBuilder builder, Map<String, String> map){
+        if(map.containsKey("id")){
+            builder.append(String.format(" AND id = %d", Integer.parseInt(map.get("id"))));
+        }
+        if(map.containsKey("firstName")){
+            builder.append(String.format(" AND firstname = '%s'", map.get("firstName")));
+        }
+        if(map.containsKey("lastName")){
+            builder.append(String.format(" AND lastname = '%s'", map.get("lastName")));
+        }
+        if(map.containsKey("phoneNumber")){
+            builder.append(String.format(" AND phonenumber = '%s'", map.get("phoneNumber")));
+        }
+        if(map.containsKey("username")){
+            builder.append(String.format(" AND username = '%s'", map.get("username")));
+        }
+        if(map.containsKey("password")){
+            builder.append(String.format(" AND password = '%s'", map.get("password")));
+        }
+        if(map.containsKey("priority")){
+            builder.append(String.format(" AND priority = '%s'", map.get("priority")));
+        }
+
     }
 
     public Users findUsersByOnceParam(String key, String value){

@@ -4,44 +4,45 @@ import config.DatabaseConfig;
 import entity.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import repository.mapper.StudentRepositoryMapper;
 
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 public class StudentRepository {
 
     private final JdbcTemplate template;
 
     public StudentRepository(){
-        DataSource source = DatabaseConfig.getInstance().getDataSource();
+        DriverManagerDataSource source = DatabaseConfig.getInstance().getDataSource();
         this.template = new JdbcTemplate(source);
     }
 
     public List<Student> getStudent(Map<String, String> map){
 
-        StringBuilder query = new StringBuilder("SELECT * FROM student WHERE  1=1");
+        StringBuilder query = new StringBuilder("SELECT * FROM student WHERE 1=1");
         createStringQuery(query, map);
 
         PreparedStatementSetter setter = ps -> {setValuesToStatement(ps, map);};
-        List<Student> students = template.query(query + "", setter, new StudentRepositoryMapper());
+        List<Student> students = template.query(query + "", new StudentRepositoryMapper());
 
         return students;
     }
 
     private void createStringQuery(StringBuilder builder, Map<String, String> map){
         if(map.containsKey("id")){
-            builder.append(" AND id = ?");
+            builder.append(String.format(" AND id = %d", Integer.parseInt(map.get("id"))));
         }
         if(map.containsKey("name")){
-            builder.append(" AND name = ?");
+            builder.append(String.format(" AND name = '%s'", map.get("name")));
         }
         if(map.containsKey("phone_number")){
-            builder.append(" AND phone_number = ?");
+            builder.append(String.format(" AND phone_number = '%s'", map.get("phone_number")));
         }
     }
 

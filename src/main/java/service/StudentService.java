@@ -1,6 +1,7 @@
 package service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import config.Util;
 import entity.Response;
 import entity.Student;
 import repository.StudentRepository;
@@ -38,13 +39,7 @@ public class StudentService {
 
         Response<List<Student>> response = new Response<>(0, true, "OK", students);
 
-        PrintWriter writer = null;
-        resp.setContentType("application/json");
-
-        writer = resp.getWriter();
-
-        writer.println(response);
-        writer.close();
+        Util.sendResponse("application.json", resp, response);
     }
     
     public void addNewStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
